@@ -1,0 +1,79 @@
+buildscript {
+	repositories{
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+	}
+}
+
+
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+jar {
+	baseName = 'redshift-rest-poc'
+	version = '0.0.1-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+sourceSets {
+    api
+    impl
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.7.RELEASE")
+    compile 'com.dieselpoint:norm:0.8.1'
+    compile 'mysql:mysql-connector-java:6.0.6'
+    //compile "org.flywaydb:flyway-core:4.2.0"
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.5.7.RELEASE'
+    compile 'org.springframework.security:spring-security-web:4.2.3.RELEASE'
+	compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.7.5'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.3'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.0.002'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.182'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-core', version: '1.11.182'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.183'
+    
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+    
+    compile group: 'com.amazon', name: 'redshift-jdbc41', version: '1.2.8.1005'
+    compile group: 'org.springframework.batch', name: 'spring-batch-core', version: '3.0.8.RELEASE'
+    compile('org.apache.camel:camel-spring-boot:2.19.3')
+    compile 'org.apache.camel:camel-bindy:2.19.3'
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile group: 'javax.persistence', name: 'persistence-api', version: '2.0'
+    compile group: 'org.apache.camel', name: 'camel-ftp', version: '2.14.1'
+    
+    
+	
+	compile 'org.springframework.boot:spring-boot-starter-batch:1.5.7.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.5.7.RELEASE'
+	compile 'org.apache.commons:commons-collections4:4.0'
+    
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    
+}
+
+jar{
+	manifest{
+		attributes(
+			'mainClass' : 'com.omniwyse.redshiftpoc.RedShiftRestPOC'
+		)
+	}
+}
+
+bootRepackage {
+    mainClass = 'com.omniwyse.redshiftpoc.RedShiftRestPOC'
+}
